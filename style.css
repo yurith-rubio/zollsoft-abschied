@@ -19,12 +19,13 @@ body, html {
   }
 
   .links line {
-    stroke: #ffffff;
+    /* stroke: #ffffff; */
+    stroke: transparent;
     stroke-opacity: 1;
   }
 
   .nodes circle {
-    fill: red;
+    fill: transparent;
   }
   foreignObject {
     overflow: visible;

@@ -80,23 +80,6 @@ const secondaryNodeWidth = 150;
 const secondaryNodeHeight = 150;
 const smallText = "10px";
 const largeText = "20px";
-
-// const simulation = d3
-//   .forceSimulation(graph.nodes)
-//   .force("x", d3.forceX().strength(0.1))
-//   .force("y", d3.forceY().strength(0.1))
-//   .force("center", d3.forceCenter(svgWidth / 2, svgHeight / 2))
-//   .force(
-//     "collide",
-//     d3.forceCollide().radius(function (d) {
-//       if (d.name === "Ivan") {
-//         return 250;
-//       }
-//       return 100; // Adjust radius as needed
-//     })
-//   )
-//   .on("tick", ticked);
-
 const ivanNode = graph.nodes.find(node => node.name === "Ivan");
 
 var simulation = d3
@@ -111,14 +94,9 @@ var simulation = d3
     .links(graph.links)
 )
 
-.force("charge", d3.forceManyBody().strength(-8000))
-.force("collide", d3.forceCollide().radius(function(d) {
-  if (d.name === "Ivan") {
-    return 100;
-  }
-  return 0;
-}
-))
+.force("charge", d3.forceManyBody().strength(-2000))
+// .force("collide", d3.forceCollide().radius(100))
+.force("radial", d3.forceRadial(1200, svgWidth / 2, svgHeight / 2))
 .force("center", d3.forceCenter(svgWidth / 2, svgHeight / 2))
 .on("tick", ticked);
 
@@ -183,9 +161,9 @@ const text = svg
   })
   .style("color", "white")
   .style("background-color", function (d) {
-    // if (d.name === "Ivan") {
-    //   return "#192026";
-    // }
+    if (d.name === "Ivan") {
+      return "#192026";
+    }
     return "transparent";
   })
   .style("opacity", function (d) {
@@ -221,66 +199,66 @@ const text = svg
   .text(function (d) {
     return d.content;
   })
-  // .on("mouseover", function (d) {
-  //   d3.select(this)
-  //   .transition()
-  //   .duration(300)
-  //   .style("font-size", largeText)
-  //   .style("opacity", 1)
-  //   .attr("width", function (d) {
-  //     if (d.name === "Ivan") {
-  //       return centralNodeWidth;
-  //     }
-  //     return secondaryNodeWidth + 100;
-  //   })
-  //   .attr("height", function (d) {
-  //     if (d.name === "Ivan") {
-  //       return centralNodeHeight;
-  //     }
-  //     return secondaryNodeHeight + 100;
-  //   })
+  .on("mouseover", function (d) {
+    d3.select(this)
+    .transition()
+    .duration(300)
+    .style("font-size", largeText)
+    .style("opacity", 1)
+    .attr("width", function (d) {
+      if (d.name === "Ivan") {
+        return centralNodeWidth;
+      }
+      return secondaryNodeWidth + 100;
+    })
+    .attr("height", function (d) {
+      if (d.name === "Ivan") {
+        return centralNodeHeight;
+      }
+      return secondaryNodeHeight + 100;
+    })
 
-  //   d3.selectAll(".content > foreignObject")
-  //     .filter(function(d) { return d.name === "Ivan"; })
-  //     .transition()
-  //     .duration(300)
-  //     .style("opacity", .2)
+    d3.selectAll(".content > foreignObject")
+      .filter(function(d) { return d.name === "Ivan"; })
+      .transition()
+      .duration(300)
+      .style("opacity", .2)
 
-  // })
-  // .on("mouseout", function (d) {
-  //   d3.select(this)
-  //   .transition()
-  //   .duration(300)
-  //   .style("font-size", function (d) {
-  //     if (d.name === "Ivan") {
-  //       return largeText;
-  //     }
-  //     return smallText;
-  //   })
-  //   .style("opacity", function (d) {
-  //     if (d.name === "Ivan") {
-  //       return 1;
-  //     }
-  //     return .2;
-  //   })
-  //   .attr("width", function (d) {
-  //     if (d.name === "Ivan") {
-  //       return centralNodeWidth;
-  //     }
-  //     return secondaryNodeWidth;
-  //   })
-  //   .attr("height", function (d) {
-  //     if (d.name === "Ivan") {
-  //       return centralNodeHeight;
-  //     }
-  //     return secondaryNodeHeight;
-  //   })
-  //   d3.selectAll(".content > foreignObject")
-  //     .filter(function(d) { return d.name === "Ivan"; })
-  //     .transition()
-  //     .duration(300)
-  //     .style("opacity", 1)
-  // })
+  })
+  .on("mouseout", function (d) {
+    d3.select(this)
+    .transition()
+    .duration(300)
+    .style("font-size", function (d) {
+      if (d.name === "Ivan") {
+        return largeText;
+      }
+      return smallText;
+    })
+    .style("opacity", function (d) {
+      if (d.name === "Ivan") {
+        return 1;
+      }
+      return .2;
+    })
+    .attr("width", function (d) {
+      if (d.name === "Ivan") {
+        return centralNodeWidth;
+      }
+      return secondaryNodeWidth;
+    })
+    .attr("height", function (d) {
+      if (d.name === "Ivan") {
+        return centralNodeHeight;
+      }
+      return secondaryNodeHeight;
+    })
+    d3.selectAll(".content > foreignObject")
+      .filter(function(d) { return d.name === "Ivan"; })
+      .transition()
+      .duration(300)
+      .style("opacity", 1)
+  })
     .call(
       d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended)
     );
@@ -291,9 +269,6 @@ const text = svg
       <br>
       <br>
       <img src="./zollsoft-team.png" alt="Logo" />`)
-
-  
-  // .html('Wir sind tief bestürzt über seinen Verlust. Seine Familie bedeutete ihm alles, und er brachte Freude in unser aller Leben. Mögest du in der Liebe, die ihr geteilt habt, und in euren Erinnerungen Kraft finden.<img src="./zollsoft-team.png" alt="Logo" />')
 
 function ticked() {
   link
@@ -345,7 +320,6 @@ function ticked() {
     });
 
   // Position Ivan always in the center
-  const ivanNode = graph.nodes.find((node) => node.name === "Ivan");
   if (ivanNode) {
     ivanNode.x = svgWidth / 2 - centralNodeWidth / 2;
     ivanNode.y = svgHeight / 2 - centralNodeHeight / 2;
