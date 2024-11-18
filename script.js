@@ -260,7 +260,7 @@ const text = svg
         return centralNodeWidth;
       }
       if (isMobile) {
-        return secondaryNodeWidth + 30;
+        return secondaryNodeWidth + secondaryNodeWidth / 2;
       }
       return secondaryNodeWidth * 2;
     })
@@ -268,14 +268,13 @@ const text = svg
       if (d.name === "Webservices") {
         return centralNodeHeight;
       }
-      return secondaryNodeHeight * 2;
+      return secondaryNodeHeight;
     })
-    // move text to the left a bit
-    .attr("x", function (d) {
+    .attr("transform", function (d) {
       if (d.name === "Webservices") {
-        return d.x;
+        return "translate(0, 0)";
       }
-      return d.x - secondaryNodeWidth / 2;
+      return "translate(-30, -20)";
     })
 
     d3.selectAll(".content > foreignObject")
@@ -313,7 +312,6 @@ const text = svg
       }
       return secondaryNodeHeight;
     })
-    
     d3.selectAll(".content > foreignObject")
       .filter(function(d) { return d.name === "Webservices"; })
       .transition()
