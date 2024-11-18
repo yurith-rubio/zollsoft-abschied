@@ -1,17 +1,13 @@
-//initilize svg or grab svg
 const svg = d3.select("#responsiveSvg");
 let svgWidth = svg.attr("width");
 let svgHeight = svg.attr("height");
-
 let isMobile = false;
-
+let screenWidth = window.innerWidth;
 
 function resizeSvg() {
-  svgWidth = window.innerWidth;
-  svgHeight = window.innerHeight;
-
-  if (svgWidth < 450) {
-    // svg.attr("width", svgWidth * 0.7);
+  if (screenWidth < 450) {
+    svgWidth = window.innerWidth;
+    svgHeight = window.innerHeight;
     svg.attr("width", 400);
     svg.attr("height", svgHeight * 0.8);
     isMobile = true;
@@ -22,15 +18,9 @@ function resizeSvg() {
   }
 }
 
-// Call resizeSvg on window resize
 window.addEventListener("resize", resizeSvg);
-
-// Call resizeSvg on initial load
 resizeSvg();
 
-
-
-//intialize data
 const mainDot = { name: "Main" };
 const graph = {
   nodes: [
@@ -258,20 +248,20 @@ const text = svg
       if (d.name === "Webservices") {
         return centralNodeWidth;
       }
-      return secondaryNodeWidth + 100;
+      return secondaryNodeWidth;
     })
     .attr("height", function (d) {
       if (d.name === "Webservices") {
         return centralNodeHeight;
       }
-      return secondaryNodeHeight + 100;
+      return secondaryNodeHeight;
     })
 
     d3.selectAll(".content > foreignObject")
       .filter(function(d) { return d.name === "Webservices"; })
       .transition()
       .duration(300)
-      .style("opacity", .4)
+      .style("opacity", .6)
 
   })
   .on("mouseout", function (d) {
