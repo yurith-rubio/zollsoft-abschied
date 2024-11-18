@@ -1,7 +1,34 @@
 //initilize svg or grab svg
-const svg = d3.selectAll(".svgContainer");
-const svgWidth = svg.attr("width");
-const svgHeight = svg.attr("height");
+const svg = d3.select("#responsiveSvg");
+let svgWidth = svg.attr("width");
+let svgHeight = svg.attr("height");
+
+let isMobile = false;
+
+
+function resizeSvg() {
+  svgWidth = window.innerWidth;
+  svgHeight = window.innerHeight;
+
+  if (svgWidth < 450) {
+    // svg.attr("width", svgWidth * 0.7);
+    svg.attr("width", 400);
+    svg.attr("height", svgHeight * 0.8);
+    isMobile = true;
+  } else {
+    svg.attr("width", 1400);
+    svg.attr("height", 1000);
+    isMobile = false;
+  }
+}
+
+// Call resizeSvg on window resize
+window.addEventListener("resize", resizeSvg);
+
+// Call resizeSvg on initial load
+resizeSvg();
+
+
 
 //intialize data
 const mainDot = { name: "Main" };
@@ -71,32 +98,60 @@ const graph = {
   ],
 };
 
-const centralNodeWidth = 380;
-const centralNodeHeight = 320;
-const secondaryNodeWidth = 150;
-const secondaryNodeHeight = 150;
-const smallText = "10px";
-const largeText = "20px";
+let centralNodeWidth = 380;
+let centralNodeHeight = 320;
+let secondaryNodeWidth = 150;
+let secondaryNodeHeight = 150;
+let smallText = "10px";
+let largeText = "20px";
+
+if (isMobile) {
+  centralNodeWidth = 250;
+  centralNodeHeight = 200;
+  secondaryNodeWidth = 150;
+  secondaryNodeHeight = 80;
+  smallText = "8px";
+  largeText = "14px";
+}
+
 const WebservicesNode = graph.nodes.find(node => node.name === "Webservices");
 
-var simulation = d3
-.forceSimulation(graph.nodes)
-.force(
-  "link",
-  d3
-    .forceLink()
-    .id(function(d) {
-      return d.name;
-    })
-    .links(graph.links)
-)
 
-.force("charge", d3.forceManyBody().strength(-2000))
-// .force("collide", d3.forceCollide().radius(100))
-.force("radial", d3.forceRadial(1200, svgWidth / 2, svgHeight / 2))
-.force("center", d3.forceCenter(svgWidth / 2, svgHeight / 2))
-.on("tick", ticked);
-
+if (isMobile) {
+  var simulation = d3
+    .forceSimulation(graph.nodes)
+    .force(
+      "link",
+      d3
+        .forceLink()
+        .id(function(d) {
+          return d.name;
+        })
+        .links(graph.links)
+    )
+    .force("charge", d3.forceManyBody().strength(-1000))
+    // .force("collide", d3.forceCollide().radius(100))
+    .force("radial", d3.forceRadial(800, svgWidth / 2, svgHeight / 2))
+    .force("center", d3.forceCenter(svgWidth / 2, svgHeight / 2))
+    .on("tick", ticked);
+} else {
+  var simulation = d3
+    .forceSimulation(graph.nodes)
+    .force(
+      "link",
+      d3
+        .forceLink()
+        .id(function(d) {
+          return d.name;
+        })
+        .links(graph.links)
+    )
+    .force("charge", d3.forceManyBody().strength(-2000))
+    // .force("collide", d3.forceCollide().radius(100))
+    .force("radial", d3.forceRadial(1200, svgWidth / 2, svgHeight / 2))
+    .force("center", d3.forceCenter(svgWidth / 2, svgHeight / 2))
+    .on("tick", ticked);
+}
 const link = svg
   .append("g")
   .attr("class", "links")
@@ -189,6 +244,9 @@ const text = svg
   })
   .style("padding", function (d) {
     if (d.name === "Webservices") {
+      if (isMobile) {
+        return "10px";
+      }
       return "40px";
     }
     return "5px";
