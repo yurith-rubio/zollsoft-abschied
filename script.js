@@ -222,15 +222,9 @@ const text = svg
     if (d.name === "Webservices") {
       return 1;
     }
-    return .2;
+    return .4;
   })
   .style("position", "relative")
-  .style("z-index", function (d) {
-    if (d.name === "Webservices") {
-      return 0;
-    }
-    return 1;
-  })
   .style("border-radius", function (d) {
     if (d.name === "Webservices") {
       return "10px";
@@ -294,7 +288,7 @@ const text = svg
       if (d.name === "Webservices") {
         return 1;
       }
-      return .2;
+      return .4;
     })
     .attr("width", function (d) {
       if (d.name === "Webservices") {
