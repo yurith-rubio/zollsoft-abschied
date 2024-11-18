@@ -27,7 +27,7 @@ const graph = {
     {
       name: "Ferdi1",
       content:`Er wird mir als warmherziger Mensch in Erinnerung bleiben, der viel dazu beigetragen hat, dass ich mich hier auf meiner ersten richtigen Arbeit willkommen und wohl gefühlt habe - dafür bin ich Ihm für immer dankbar. 
-      <br><br> - Ferdi1`,
+      <br><br> - Ferdi`,
     },
     {
       name: "Ferdi2",
@@ -324,10 +324,10 @@ const text = svg
 
   //add logo to the main-text 
   const mainNode = d3.select(".main-text")
-    .html(`Das Team Webservices hat einen wundervollen Kollegen und starken Mitstreiter verloren. 
+    .html(`Christoph war ein elementarer Teil unseres Team.  
         <br>
         <br>
-        Wir sind bei euch in der Trauer um einen so liebevollen MensFabian1!
+        Wir sind so dankbar für die gemeinsame Zeit und sind jetzt in der Trauer an eurer Seite.
         <br>
         <br>
         <img src="./zollsoft-team.png" alt="Logo" />`)
