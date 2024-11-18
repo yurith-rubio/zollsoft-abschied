@@ -271,7 +271,7 @@ const text = svg
       .filter(function(d) { return d.name === "Webservices"; })
       .transition()
       .duration(300)
-      .style("opacity", .2)
+      .style("opacity", .4)
 
   })
   .on("mouseout", function (d) {
