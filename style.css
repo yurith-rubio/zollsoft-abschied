@@ -35,3 +35,20 @@ body, html {
   .main-text {
     box-shadow: 0px 4px 30px #3366CC;
   }
+
+  @media screen and (max-width: 450px) {
+    .svgContainer.mobile {
+      display: block;
+    }
+    .svgContainer.desktop {
+      display: none;
+    }
+  }
+  @media screen and (min-width: 451px) {
+    .svgContainer.desktop {
+      display: block;
+    }
+    .svgContainer.mobile {
+      display: none;
+    }
+  }

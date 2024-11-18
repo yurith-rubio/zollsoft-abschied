@@ -1,5 +1,5 @@
 //initilize svg or grab svg
-const svg = d3.select("svg");
+const svg = d3.selectAll(".svgContainer");
 const svgWidth = svg.attr("width");
 const svgHeight = svg.attr("height");
 
@@ -8,79 +8,76 @@ const mainDot = { name: "Main" };
 const graph = {
   nodes: [
     {
-      name: "Alice",
-      content:
-        "Wir sind unendlich traurig über euren Verlust. Er war nicht nur ein großartiger Kollege, sondern auch ein wunderbarer Freund, Ehemann und Vater. Unsere Gedanken sind bei dir und den Kindern in dieser schweren Zeit.",
+      name: "Ferdi1",
+      content:`Er wird mir als warmherziger Mensch in Erinnerung bleiben, der viel dazu beigetragen hat, dass ich mich hier auf meiner ersten richtigen Arbeit willkommen und wohl gefühlt habe - dafür bin ich Ihm für immer dankbar. 
+      <br><br> - Ferdi1`,
     },
     {
-      name: "Bob",
+      name: "Ferdi2",
       content:
-        "Bitte nimm unser herzliches Beileid an. Seine Freundlichkeit und sein Humor werden uns allen fehlen. Unser tiefes Mitgefühl gilt dir, seiner geliebten Frau, und den Kindern.",
+        `Mein herzliches Beileid. Immer bodenständig, vernünftig und doch scherzend.
+        <br><br> - Ferdi`,
     },
     {
-      name: "Chen",
+      name: "Fabian1",
       content:
-        "Es tut mir unendlich leid. Er war wirklich einzigartig, und seine Liebe für euch als Familie war immer zu spüren. Wir sind für dich und die Familie da, wenn ihr uns braucht.",
+        `Ein toller Kerl!
+        <br><br> - Fabian`,
     },
     {
-      name: "Dawg",
+      name: "Fabian2",
       content:
-        "Es ist kaum zu glauben, dass er nicht mehr bei uns ist. Seine Hingabe für seine Arbeit und seine Familie war inspirierend. Ich wünsche euch Trost in der Liebe, die er euch gegeben hat, und in den gemeinsamen Erinnerungen.",
+        `Über die vielen Projekte, die wir gemeinsam bestritten haben, hab ich ihn wirklich ins Herz geschlossen.
+        <br><br> - Fabian`,
     },
     {
-      name: "Ethan",
+      name: "Fabian3",
       content:
-        "Wir sind untröstlich über seinen Verlust. Er war ein außergewöhnlicher Mensch, der viele Leben berührt hat. Seine Erinnerung wird in den Herzen seiner Kollegen, Freunde und vor allem seiner Familie weiterleben.",
+        `Ich werde ihn immer als gelassenen, freundlichen und enorm intelligenten Menschen in Erinnerung behalten.
+        <br><br> - Fabian`,
     },
     {
-      name: "George",
+      name: "Fabian4",
       content:
-        "Mein herzlichstes Beileid. Er war ein wunderbarer Freund und stolzer Vater. Seine Liebe zu euch als Familie war immer spürbar. Ich wünsche euch Kraft und Frieden in dieser schweren Zeit.",
+        `He will be missed!
+        <br><br> - Fabian`,
     },
     {
-      name: "Frank",
+      name: "Yurith",
       content:
-        "Worte können unser Mitgefühl kaum ausdrücken. Er war eine Freude, mit ihm zu arbeiten, und ein hingebungsvoller Familienmensch. Wir werden ihn sehr vermissen und denken an dich und die Kinder.",
+        `Mein herzlichstes Beileid an seine Familie und Freunde.
+        <br><br> - Yurith`,
     },
     {
-      name: "Hanes",
-      content:
-        "Bitte nimm unser aufrichtiges Mitgefühl an. Seine Herzlichkeit und Freundlichkeit haben uns allen gutgetan. Wir hoffen, dass du dich in dieser schweren Zeit von Liebe und Unterstützung umgeben fühlst.",
-    },
-    {
-      name: "Ivan",
-      content:
-        "Wir sind tief bestürzt über seinen Verlust. Seine Familie bedeutete ihm alles, und er brachte Freude in unser aller Leben. Mögest du in der Liebe, die ihr geteilt habt, und in euren Erinnerungen Kraft finden.",
+      name: "Webservices",
+      content:"",
     },
   ],
   links: [
-    { source: "Alice", target: "Bob" },
-    { source: "Bob", target: "Chen" },
-    { source: "Chen", target: "Dawg" },
-    { source: "Dawg", target: "Ethan" },
-    { source: "Ethan", target: "George" },
-    { source: "George", target: "Frank" },
-    { source: "Frank", target: "Hanes" },
-    { source: "Hanes", target: "Alice" },
-    { source: "Ivan", target: "Alice" },
-    { source: "Ivan", target: "Bob" },
-    { source: "Ivan", target: "Chen" },
-    { source: "Ivan", target: "Dawg" },
-    { source: "Ivan", target: "Ethan" },
-    { source: "Ivan", target: "George" },
-    { source: "Ivan", target: "Frank" },
-    { source: "Ivan", target: "Hanes" },
-
+    { source: "Ferdi1", target: "Ferdi2" },
+    { source: "Ferdi2", target: "Fabian1" },
+    { source: "Fabian1", target: "Fabian2" },
+    { source: "Fabian2", target: "Fabian3" },
+    { source: "Fabian3", target: "Fabian4" },
+    { source: "Fabian4", target: "Yurith" },
+    { source: "Yurith", target: "Ferdi1" },
+    { source: "Webservices", target: "Ferdi1" },
+    { source: "Webservices", target: "Ferdi2" },
+    { source: "Webservices", target: "Fabian1" },
+    { source: "Webservices", target: "Fabian2" },
+    { source: "Webservices", target: "Fabian3" },
+    { source: "Webservices", target: "Fabian4" },
+    { source: "Webservices", target: "Yurith" },
   ],
 };
 
-const centralNodeWidth = 320;
+const centralNodeWidth = 380;
 const centralNodeHeight = 320;
 const secondaryNodeWidth = 150;
 const secondaryNodeHeight = 150;
 const smallText = "10px";
 const largeText = "20px";
-const ivanNode = graph.nodes.find(node => node.name === "Ivan");
+const WebservicesNode = graph.nodes.find(node => node.name === "Webservices");
 
 var simulation = d3
 .forceSimulation(graph.nodes)
@@ -128,19 +125,19 @@ const text = svg
   .enter()
   .append("foreignObject")
   .attr("width", function (d) {
-    if (d.name === "Ivan") {
+    if (d.name === "Webservices") {
       return centralNodeWidth;
     }
     return secondaryNodeWidth;
   })
   .attr("height", function (d) {
-    if (d.name === "Ivan") {
+    if (d.name === "Webservices") {
       return centralNodeHeight;
     }
     return secondaryNodeHeight;
   })
   .attr("x", function (d) {
-    if (d.name === "Ivan") {
+    if (d.name === "Webservices") {
       return d.x;
     }
     return d.x;
@@ -149,54 +146,54 @@ const text = svg
     return d.y;
   })
   .classed("main-text", function (d) {
-    return d.name === "Ivan";
+    return d.name === "Webservices";
   })
   .style("max-width", "150px")
   .style("text-overflow", "ellipsis")
   .style("font-size", function (d) {
-    if (d.name === "Ivan") {
+    if (d.name === "Webservices") {
       return largeText;
     }
     return smallText;
   })
   .style("color", "white")
   .style("background-color", function (d) {
-    if (d.name === "Ivan") {
+    if (d.name === "Webservices") {
       return "#192026";
     }
     return "transparent";
   })
   .style("opacity", function (d) {
-    if (d.name === "Ivan") {
+    if (d.name === "Webservices") {
       return 1;
     }
     return .2;
   })
   .style("position", "relative")
   .style("z-index", function (d) {
-    if (d.name === "Ivan") {
+    if (d.name === "Webservices") {
       return 0;
     }
     return 1;
   })
   .style("border-radius", function (d) {
-    if (d.name === "Ivan") {
+    if (d.name === "Webservices") {
       return "10px";
     }
     return "0px";
   })
   .each(function(d) {
-    if (d.name === "Ivan") {
+    if (d.name === "Webservices") {
       d3.select(this).lower();
     }
   })
   .style("padding", function (d) {
-    if (d.name === "Ivan") {
-      return "20px";
+    if (d.name === "Webservices") {
+      return "40px";
     }
     return "5px";
   })
-  .text(function (d) {
+  .html(function (d) {
     return d.content;
   })
   .on("mouseover", function (d) {
@@ -206,20 +203,20 @@ const text = svg
     .style("font-size", largeText)
     .style("opacity", 1)
     .attr("width", function (d) {
-      if (d.name === "Ivan") {
+      if (d.name === "Webservices") {
         return centralNodeWidth;
       }
       return secondaryNodeWidth + 100;
     })
     .attr("height", function (d) {
-      if (d.name === "Ivan") {
+      if (d.name === "Webservices") {
         return centralNodeHeight;
       }
       return secondaryNodeHeight + 100;
     })
 
     d3.selectAll(".content > foreignObject")
-      .filter(function(d) { return d.name === "Ivan"; })
+      .filter(function(d) { return d.name === "Webservices"; })
       .transition()
       .duration(300)
       .style("opacity", .2)
@@ -230,31 +227,31 @@ const text = svg
     .transition()
     .duration(300)
     .style("font-size", function (d) {
-      if (d.name === "Ivan") {
+      if (d.name === "Webservices") {
         return largeText;
       }
       return smallText;
     })
     .style("opacity", function (d) {
-      if (d.name === "Ivan") {
+      if (d.name === "Webservices") {
         return 1;
       }
       return .2;
     })
     .attr("width", function (d) {
-      if (d.name === "Ivan") {
+      if (d.name === "Webservices") {
         return centralNodeWidth;
       }
       return secondaryNodeWidth;
     })
     .attr("height", function (d) {
-      if (d.name === "Ivan") {
+      if (d.name === "Webservices") {
         return centralNodeHeight;
       }
       return secondaryNodeHeight;
     })
     d3.selectAll(".content > foreignObject")
-      .filter(function(d) { return d.name === "Ivan"; })
+      .filter(function(d) { return d.name === "Webservices"; })
       .transition()
       .duration(300)
       .style("opacity", 1)
@@ -265,21 +262,24 @@ const text = svg
 
   //add logo to the main-text 
   const mainNode = d3.select(".main-text")
-    .html(`Wir sind tief bestürzt über seinen Verlust. Seine Familie bedeutete ihm alles, und er brachte Freude in unser aller Leben. Mögest du in der Liebe, die ihr geteilt habt, und in euren Erinnerungen Kraft finden.
-      <br>
-      <br>
-      <img src="./zollsoft-team.png" alt="Logo" />`)
+    .html(`Das Team Webservices hat einen wundervollen Kollegen und starken Mitstreiter verloren. 
+        <br>
+        <br>
+        Wir sind bei euch in der Trauer um einen so liebevollen MensFabian1!
+        <br>
+        <br>
+        <img src="./zollsoft-team.png" alt="Logo" />`)
 
 function ticked() {
   link
     .attr("x1", function (d) {
-      if (d.source.name === "Ivan") {
+      if (d.source.name === "Webservices") {
         return d.source.x + centralNodeWidth / 2;
       }
       return d.source.x;
     })
     .attr("y1", function (d) {
-      if (d.source.name === "Ivan") {
+      if (d.source.name === "Webservices") {
         return d.source.y + centralNodeHeight / 2;
       }
       return d.source.y;
@@ -293,13 +293,13 @@ function ticked() {
 
   node
     .attr("cx", function (d) {
-      if (d.name === "Ivan") {
+      if (d.name === "Webservices") {
         return d.x + centralNodeWidth / 2;
       }
       return d.x;
     })
     .attr("cy", function (d) {
-      if (d.name === "Ivan") {
+      if (d.name === "Webservices") {
         return d.y + centralNodeHeight / 2;
       }
       return d.y;
@@ -307,22 +307,22 @@ function ticked() {
 
   text
     .attr("x", function (d) {
-      if (d.name === "Ivan") {
+      if (d.name === "Webservices") {
         return d.x;
       }
       return d.x - secondaryNodeWidth / 2;
     })
     .attr("y", function (d) {
-      if (d.name === "Ivan") {
+      if (d.name === "Webservices") {
         return d.y;
       }
       return d.y - secondaryNodeHeight / 2;
     });
 
-  // Position Ivan always in the center
-  if (ivanNode) {
-    ivanNode.x = svgWidth / 2 - centralNodeWidth / 2;
-    ivanNode.y = svgHeight / 2 - centralNodeHeight / 2;
+  // Position Webservices always in the center
+  if (WebservicesNode) {
+    WebservicesNode.x = svgWidth / 2 - centralNodeWidth / 2;
+    WebservicesNode.y = svgHeight / 2 - centralNodeHeight / 2;
   }
 }
 
