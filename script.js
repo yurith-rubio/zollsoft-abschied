@@ -259,6 +259,9 @@ const text = svg
       if (d.name === "Webservices") {
         return centralNodeWidth;
       }
+      if (isMobile) {
+        return secondaryNodeWidth + 30;
+      }
       return secondaryNodeWidth * 2;
     })
     .attr("height", function (d) {
@@ -266,6 +269,13 @@ const text = svg
         return centralNodeHeight;
       }
       return secondaryNodeHeight * 2;
+    })
+    // move text to the left a bit
+    .attr("x", function (d) {
+      if (d.name === "Webservices") {
+        return d.x;
+      }
+      return d.x - secondaryNodeWidth / 2;
     })
 
     d3.selectAll(".content > foreignObject")
@@ -303,6 +313,7 @@ const text = svg
       }
       return secondaryNodeHeight;
     })
+    
     d3.selectAll(".content > foreignObject")
       .filter(function(d) { return d.name === "Webservices"; })
       .transition()
