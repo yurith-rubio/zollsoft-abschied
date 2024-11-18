@@ -88,20 +88,30 @@ const graph = {
   ],
 };
 
-let centralNodeWidth = 380;
-let centralNodeHeight = 320;
-let secondaryNodeWidth = 150;
-let secondaryNodeHeight = 150;
-let smallText = "10px";
-let largeText = "20px";
+
+let centralNodeWidth;
+let centralNodeHeight;
+let secondaryNodeWidth;
+let secondaryNodeHeight;
+let smallText;
+let largeText;
 
 if (isMobile) {
+  console.log("isMobile NodeWidth and  Height, and tex sizes")
   centralNodeWidth = 250;
   centralNodeHeight = 200;
   secondaryNodeWidth = 150;
   secondaryNodeHeight = 80;
   smallText = "8px";
   largeText = "14px";
+} else {
+  console.log("is NOT MOBILE NodeWidth and  Height, and tex sizes")
+  centralNodeWidth = 380;
+  centralNodeHeight = 320;
+  secondaryNodeWidth = 200;
+  secondaryNodeHeight = 150;
+  smallText = "10px";
+  largeText = "20px";
 }
 
 const WebservicesNode = graph.nodes.find(node => node.name === "Webservices");
@@ -173,6 +183,7 @@ const text = svg
     if (d.name === "Webservices") {
       return centralNodeWidth;
     }
+    console.log("secondaryNodeWidth", secondaryNodeWidth)
     return secondaryNodeWidth;
   })
   .attr("height", function (d) {
@@ -248,13 +259,13 @@ const text = svg
       if (d.name === "Webservices") {
         return centralNodeWidth;
       }
-      return secondaryNodeWidth;
+      return secondaryNodeWidth * 2;
     })
     .attr("height", function (d) {
       if (d.name === "Webservices") {
         return centralNodeHeight;
       }
-      return secondaryNodeHeight;
+      return secondaryNodeHeight * 2;
     })
 
     d3.selectAll(".content > foreignObject")
